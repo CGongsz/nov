@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
   <head>
@@ -55,7 +56,7 @@
           <ul class="nav nav-sidebar">
             <li class="active"><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
             <li><a href="#">留言管理</a></li>
-            <li><a href="#">分类管理</a></li>
+            <li><a href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></li>
             <li><a href="#">个人信息</a></li>
           </ul>
         </div>
@@ -65,9 +66,9 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <!-- <th>ID</th> -->
                   <th>标题</th>
-                  <th>时间</th>
+                  <th>最后修改时间</th>
                   <th>浏览量</th>
                   <th>所属分类</th>
                   <th>操作</th>
@@ -76,11 +77,11 @@
               <tbody>
               <c:forEach items="${articleList }" var="article">
                 <tr>
-                  <td>${article.id }</td>
+                  <%-- <td>${article.id }</td> --%>
                   <td>${article.title }</td>
-                  <td>${article.createTime }</td>
+                  <td><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                   <td>${article.clickRate }</td>
-                  <td>${article.article_type_id }</td>
+                  <td>${article.articleType.typeName }</td>
                   <td>
                   	<button type="button" class="btn btn-primary">编辑</button>
                   	<button type="button" class="btn btn-danger">删除</button>

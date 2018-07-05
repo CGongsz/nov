@@ -1,10 +1,9 @@
-package com.nov.service.impl;
+package com.nov.dao.impl;
 
 import java.util.List;
 
 import com.nov.bean.Article;
 import com.nov.dao.ArticleDao;
-import com.nov.dao.impl.BaseDaoImpl;
 
 public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 
