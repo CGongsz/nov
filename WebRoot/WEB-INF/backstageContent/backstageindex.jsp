@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Blog</a>
+          <a class="navbar-brand" href="#">${author.username }のBlog</a>
         </div>
       </div>
     </nav>
@@ -55,7 +55,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">留言管理</a></li>
+            <li><a href="${pageContext.request.contextPath }/commentServlet?method=list">留言管理</a></li>
             <li><a href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></li>
             <li><a href="#">个人信息</a></li>
           </ul>

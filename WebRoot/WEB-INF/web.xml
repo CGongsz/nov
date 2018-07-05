@@ -39,4 +39,21 @@
     <servlet-name>ArticleTypeServlet</servlet-name>
     <url-pattern>/articleTypeServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>BaseServlet</servlet-name>
+    <servlet-class>com.nov.controller.base.BaseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BaseServlet</servlet-name>
+    <url-pattern>/baseServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CommentServlet</servlet-name>
+  	<servlet-class>com.nov.controller.backstage.CommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommentServlet</servlet-name>
+  	<url-pattern>/commentServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

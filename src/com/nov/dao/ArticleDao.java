@@ -17,5 +17,12 @@ public interface ArticleDao extends BaseDao<Article>{
 	 * @return 如果存在返回集合,否则返回null
 	 */
 	public List<Article> findAllArticleByAuthorIdList(Integer id);
+
+	/**
+	 * 查询博主所有文章的ID
+	 * @param id 博主的唯一标识
+	 * @return 如果存在文章返回集合，否则返回null
+	 */
+	public List<String> findAllArticleIdByAuthorIdList(Integer id);
 	
 }

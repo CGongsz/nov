@@ -30,4 +30,6 @@ public interface BaseDao<T> {
 	 * @return 如果查询结果存在返回集合，否则集合为null
 	 */
 	public List<T> search(String sql, Object ...objects);
+	
+	
 }

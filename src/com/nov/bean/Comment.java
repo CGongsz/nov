@@ -2,10 +2,11 @@ package com.nov.bean;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Comparable<Comment>{
 	private String id;
 	// 评论的游客标识
 	private String visitor_email;
+	private String visitor_username;
 	private Visitor visitor;
 	// 评论的文章标识
 	private String article_id;
@@ -26,6 +27,12 @@ public class Comment {
 		this.article = article;
 		this.content = content;
 		this.createTime = createTime;
+	}
+	public String getVisitor_username() {
+		return visitor_username;
+	}
+	public void setVisitor_username(String visitor_username) {
+		this.visitor_username = visitor_username;
 	}
 	public String getId() {
 		return id;
@@ -68,6 +75,12 @@ public class Comment {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	
+	
+	@Override
+	public int compareTo(Comment o) {
+		return this.getCreateTime().compareTo(o.getCreateTime());
 	}
 	
 }

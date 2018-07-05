@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>分类管理</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath }/style/css/bootstrap.min.css" rel="stylesheet">
@@ -54,29 +55,31 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
-            <li><a href="${pageContext.request.contextPath }/commentServlet?method=list">留言管理</a></li>
-            <li class="active"><a href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></li>
+            <li  class="active"><a href="${pageContext.request.contextPath }/commentServlet?method=list">留言管理</a></li>
+            <li><a href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></li>
             <li><a href="#">个人信息</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">分类管理</h2>
+          <h2 class="sub-header">评论列表</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>文章类别</th>
-                  <th>类别描述</th>
+                  <th>昵称</th>
+                  <th>时间</th>
+                  <th>内容</th>
+                  <th>所属文章</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-              <c:forEach items="${articleTypeList }" var="articleType">
+              	<c:forEach items="${commentList }" var="comment">
                 <tr>
-                  <td>${articleType.typeId }</td>
-                  <td>${articleType.typeName }</td>
-                  <td>${articleType.info }</td>
+                  <td>${comment.visitor_username }</td>
+                  <td><fmt:formatDate value="${comment.createTime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                  <td>${comment.content }</td>
+                  <td>${comment.article.title }</td>
                   <td>
                   	<button type="button" class="btn btn-danger">删除</button>
                   </td>
@@ -84,20 +87,12 @@
                 </c:forEach>
               </tbody>
             </table>
-            <form action="#">
-            	<div class="form-group has-warning has-feedback">
-            	  <input style="width: 40%;margin-right: 0;float: left;" type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">	
-            	  <button style="float: left; margin-left: 20px;" type="button" class="btn btn-warning">添加</button>
-            	  <span id="inputWarning2Status" class="sr-only">(warning)</span>
-            	</div>
-            	
-            </form>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
+   <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="${pageContext.request.contextPath }/style/js/jquery-3.2.0.js"></script>
