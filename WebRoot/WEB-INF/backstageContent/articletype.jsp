@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="zh-CN">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>后台管理页面</title>
+    <title>分类管理</title>
 
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath }/style/css/bootstrap.min.css" rel="stylesheet">
@@ -53,42 +52,42 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
             <li><a href="#">留言管理</a></li>
-            <li><a href="#">分类管理</a></li>
+            <li class="active"><a href="#">分类管理</a></li>
             <li><a href="#">个人信息</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">文章列表</h2>
+          <h2 class="sub-header">文章类别</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>标题</th>
-                  <th>时间</th>
-                  <th>浏览量</th>
-                  <th>所属分类</th>
+                  <th>文章类别</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-              <c:forEach items="${articleList }" var="article">
                 <tr>
-                  <td>${article.id }</td>
-                  <td>${article.title }</td>
-                  <td>${article.createTime }</td>
-                  <td>${article.clickRate }</td>
-                  <td>${article.article_type_id }</td>
+                  <td>1,001</td>
+                  <td>sit</td>
                   <td>
-                  	<button type="button" class="btn btn-primary">编辑</button>
                   	<button type="button" class="btn btn-danger">删除</button>
+                  	
                   </td>
                 </tr>
-                </c:forEach>
               </tbody>
             </table>
+            <form action="#">
+            	<div class="form-group has-warning has-feedback">
+            	  <input style="width: 40%;margin-right: 0;float: left;" type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">	
+            	  <button style="float: left; margin-left: 20px;" type="button" class="btn btn-warning">添加</button>
+            	  <span id="inputWarning2Status" class="sr-only">(warning)</span>
+            	</div>
+            	
+            </form>
           </div>
         </div>
       </div>

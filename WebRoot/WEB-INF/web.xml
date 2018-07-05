@@ -19,4 +19,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/backstage/loginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ArticleServlet</display-name>
+    <servlet-name>ArticleServlet</servlet-name>
+    <servlet-class>com.nov.controller.backstage.ArticleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleServlet</servlet-name>
+    <url-pattern>/articleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ArticleTypeServlet</display-name>
+    <servlet-name>ArticleTypeServlet</servlet-name>
+    <servlet-class>com.nov.controller.backstage.ArticleTypeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleTypeServlet</servlet-name>
+    <url-pattern>/articleTypeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
