@@ -56,7 +56,7 @@ footer {
   height: 34px;
 }
 .form-control {
-  border-right: none;
+  border:none;
 }
 /*
  * Off Canvas

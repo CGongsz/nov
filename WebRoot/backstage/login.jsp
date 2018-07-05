@@ -28,11 +28,11 @@
         <label for="inputPassword" class="sr-only">密码</label>
         <input id="password" name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required="">
         <span id="errorMes" style="color: red;">${error }</span>
-        <div class="checkbox">
+       <!--  <div class="checkbox">
             <label>
                 <input type="checkbox" name="remember" value="remember-me">记住密码
             </label>
-        </div>
+        </div> -->
         <button id="btnSubmit" class="btn btn-lg btn-success btn-block" type="button">登录</button>
     </form>
 </div>

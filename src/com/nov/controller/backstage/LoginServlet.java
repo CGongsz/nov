@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 			
 			// 跳转页面到后台页面
 			request.getSession().setAttribute("author", author);
-			request.getRequestDispatcher("/WEB-INF/backstageContent/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/backstageContent/backstageindex.jsp").forward(request, response);
 		} else {
 			// 将错误信息转发到登录页面
 			request.setAttribute("error", "用户名或密码错误");
