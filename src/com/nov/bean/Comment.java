@@ -15,6 +15,14 @@ public class Comment implements Comparable<Comment>{
 	private String content;
 	// 评论时间
 	private Date createTime;
+	// 被评论文章的作者标识
+	private Integer author_id;
+	public Integer getAuthor_id() {
+		return author_id;
+	}
+	public void setAuthor_id(Integer author_id) {
+		this.author_id = author_id;
+	}
 	public Comment() {
 	}
 	public Comment(String id, String visitor_email, Visitor visitor, String article_id, Article article, String content,

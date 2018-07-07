@@ -24,4 +24,26 @@ public interface ArticleTypeDao extends BaseDao<ArticleType>{
 	 */
 	public List<ArticleType> findArticleTypeByAuthorIdList(Integer id);
 
+	/**
+	 * 根据博主ID查询该博主的文章分类总记录数
+	 * @param id 博主ID
+	 * @return 文章分类总记录数
+	 */
+	public Long findArticleTypeTotal(Integer id);
+
+	/**
+	 * 根据分页对象里的数据和博主ID查询对应的部分数据
+	 * @param id 博主唯一标识
+	 * @param index limit偏移量
+	 * @param size 查询记录条数
+	 * @return 返回查询文章类型集合
+	 */
+	public List<ArticleType> findRowsByIndexSizeAndAuthorId(Integer id, Integer index, Integer size);
+
+	/**
+	 * 删除文章类型
+	 * @param id 文章类型唯一标识
+	 */
+	public void deleteArticleTypeById(Integer id);
+
 }

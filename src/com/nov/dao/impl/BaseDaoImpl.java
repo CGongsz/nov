@@ -1,11 +1,14 @@
 package com.nov.dao.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.nov.dao.BaseDao;
 import com.nov.utils.ComPoolUtil;
@@ -68,6 +71,39 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	/**
+	 * 获得总记录数
+	 */
+	public Long findEntityNumber(String sql,Object ...objects) {
+		QueryRunner queryRunner = ComPoolUtil.getQueryRunner();
+		Long total = null;
+		try {
+			total  = (Long) queryRunner.query(sql, new ScalarHandler(), objects);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(total != null && total > 0) {
+			return total;
+		} else {
+			return (long) 0;
+		}
+		
+	}
+
+	/**
+	 * 获得实体某列
+	 */
+	public List<Object> findEntityOfOneColumn(String sql, String name ,Object ...objects) {
+		QueryRunner queryRunner = ComPoolUtil.getQueryRunner();
+		List<Object> columnList = null;
+		try {
+			columnList = queryRunner.query(sql, new ColumnListHandler<Object>(name), objects);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return columnList;
 	}
 
 	

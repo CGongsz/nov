@@ -32,4 +32,28 @@ public class ArticleTypeDaoImpl extends BaseDaoImpl<ArticleType> implements Arti
 		return this.query(sql, id);
 	}
 
+	/**
+	 * 文章类型总记录数
+	 */
+	public Long findArticleTypeTotal(Integer id) {
+		String sql = "select count(*) from articletype where author_id = ? ";
+		return this.findEntityNumber(sql, id);
+	}
+
+	/**
+	 * 查询文章类型部分数据
+	 */
+	public List<ArticleType> findRowsByIndexSizeAndAuthorId(Integer id, Integer index, Integer size) {
+		String sql = "select * from articletype where author_id = ? limit ?,? ";
+		return this.query(sql, id, index, size);
+	}
+
+	/**
+	 * 删除文章类型
+	 */
+	public void deleteArticleTypeById(Integer id) {
+		String sql = "delete from articletype where typeId = ? ";
+		this.update(sql, id);
+	}
+
 }

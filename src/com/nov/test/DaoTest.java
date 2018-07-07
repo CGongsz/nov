@@ -19,5 +19,6 @@ public class DaoTest {
 		for (Author author : search) {
 			System.out.println(author);
 		}*/
+		Object obj = new Object();
 	}
 }

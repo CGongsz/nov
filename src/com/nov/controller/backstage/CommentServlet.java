@@ -12,15 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nov.bean.Author;
 import com.nov.bean.Comment;
+import com.nov.controller.base.BaseServlet;
 import com.nov.service.CommentService;
 import com.nov.service.impl.CommentServiceImpl;
+import com.nov.vo.PageBean;
 
 /**
  * 评论管理模块控制层
  * @author nov
  *
  */
-public class CommentServlet extends HttpServlet {
+public class CommentServlet extends BaseServlet<Comment> {
 
 	// 注入评论模块业务层
 	private CommentService commentService = new CommentServiceImpl();
@@ -32,8 +34,39 @@ public class CommentServlet extends HttpServlet {
 			list(request, response);
 			return;
 		}
+		
+		if("delete".equals(method)) {
+			delete(request, response);
+			list(request, response);
+			return;
+		}
 	}
 
+	/**
+	 * 删除评论
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Object author = request.getSession().getAttribute("author");
+		
+		if(author == null) {
+			response.sendRedirect("/backstage/login.jsp");
+			return;
+		} else {
+			String id = request.getParameter("id");
+			commentService.deleteCommentById(id);
+		}
+	}
+
+	/**
+	 * 列表方法
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Object author = request.getSession().getAttribute("author");
 		
@@ -41,11 +74,17 @@ public class CommentServlet extends HttpServlet {
 			response.sendRedirect("/backstage/login.jsp");
 			return;
 		} else {
-			// 调用业务层获得博主所有文章的评论
-			List<Comment> commentList = commentService.findAllCommentByAuthorIdList(((Author)author).getId());
+			Integer id = ((Author) author).getId();
+			// 获得分页对象，并初始化
+			PageBean<Comment> pageBean = this.getPageBean(request, response);
+			commentService.improveCommentPageBean(id, pageBean);
+			
+			// 设置评论中的文章实体
+			commentService.setArticleOfComment(pageBean);
 			// 转发到页面
-			request.setAttribute("commentList", commentList);
-			request.getRequestDispatcher("/WEB-INF/backstageContent/CommentManage.jsp").forward(request, response);
+			request.setAttribute("pageBean", pageBean);
+			
+			request.getRequestDispatcher("/WEB-INF/backstageContent/commentManage.jsp").forward(request, response);
 		}
 	}
 

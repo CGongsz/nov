@@ -1,15 +1,15 @@
 package com.nov.controller.base;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nov.vo.PageBean;
 
-public class BaseServlet extends HttpServlet {
+public class BaseServlet<T> extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -21,12 +21,12 @@ public class BaseServlet extends HttpServlet {
 	 * @param response
 	 * @return
 	 */
-	protected PageBean getPageBean(HttpServletRequest request, HttpServletResponse response) {
+	protected PageBean<T> getPageBean(HttpServletRequest request, HttpServletResponse response) {
 		// 获得当前页和当前显示条数
 		String currentPage = request.getParameter("currentPage");
 		String pageSize = request.getParameter("pageSize");
 		
-		PageBean pageBean = new PageBean();
+		PageBean<T> pageBean = new PageBean<T>();
 		
 		// 非空判断
 		if(currentPage != null && !"".equals(currentPage)) {

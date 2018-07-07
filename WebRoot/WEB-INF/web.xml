@@ -47,13 +47,30 @@
     <servlet-name>BaseServlet</servlet-name>
     <url-pattern>/baseServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>CommentServlet</servlet-name>
-  	<servlet-class>com.nov.controller.backstage.CommentServlet</servlet-class>
+    <servlet-name>CommentServlet</servlet-name>
+    <servlet-class>com.nov.controller.backstage.CommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>CommentServlet</servlet-name>
-  	<url-pattern>/commentServlet</url-pattern>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/commentServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>BackstageDispatcherServlet</servlet-name>
+    <servlet-class>com.nov.controller.backstage.BackstageDispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BackstageDispatcherServlet</servlet-name>
+    <url-pattern>/backstageDispatcherServlet</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>com.nov.filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  	
 </web-app>

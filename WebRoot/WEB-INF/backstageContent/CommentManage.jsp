@@ -3,65 +3,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath }/style/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="${pageContext.request.contextPath }/style/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath }/style/css/admin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="${pageContext.request.contextPath }/style/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">${author.username }のBlog</a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="${pageContext.request.contextPath }/articleServlet?method=list">文章管理 <span class="sr-only">(current)</span></a></li>
-            <li  class="active"><a href="${pageContext.request.contextPath }/commentServlet?method=list">留言管理</a></li>
-            <li><a href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></li>
-            <li><a href="#">个人信息</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">评论列表</h2>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/style/css/bootstrap.min.css">
+	<style>
+		body {
+			padding-left: 40px;
+			background: #eee;
+		}
+	</style>
+	
+</head>
+<body>
+	<h2 class="sub-header">留言列表</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -74,33 +30,71 @@
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${commentList }" var="comment">
+              <c:forEach items="${pageBean.rows }" var="comment">
                 <tr>
                   <td>${comment.visitor_username }</td>
                   <td><fmt:formatDate value="${comment.createTime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                   <td>${comment.content }</td>
                   <td>${comment.article.title }</td>
                   <td>
-                  	<button type="button" class="btn btn-danger">删除</button>
+                  	<button type="button" class="btn btn-danger" onclick="deleteComment('${comment.id}','${comment.visitor_username }')">删除</button>
+                  	<script type="text/javascript">
+						function deleteComment(id, username) {
+							var del = confirm("您确定要删除"+username+"的评论吗?");
+							if(confirm) {
+								window.location.href = "${pageContext.request.contextPath}/commentServlet?method=delete&id="+id+"&currentPage=${pageBean.currentPage}"
+							}
+						}
+					</script>
                   </td>
                 </tr>
                 </c:forEach>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-
-   <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="${pageContext.request.contextPath }/style/js/jquery-3.2.0.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="${pageContext.request.contextPath }/style/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="${pageContext.request.contextPath }/style/js/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="${pageContext.request.contextPath }/style/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+      <nav style="margin-left: 60%;" aria-label="Page navigation">
+        <ul class="pagination">
+        <c:if test="${pageBean.currentPage == 1}">
+          <li class="disabled">
+            <a href="javascript:void(0);" aria-label="Previous" >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          </c:if>
+          <c:if test="${pageBean.currentPage != 1}">
+	          <li>
+	            <a href="${pageContext.request.contextPath }/commentServlet?method=list&currentPage=${pageBean.currentPage-1}" aria-label="Previous" >
+	              <span aria-hidden="true">&laquo;</span>
+	            </a>
+	          </li>
+          </c:if>
+          
+          
+          <c:forEach begin="1" end="${pageBean.totalPage }" varStatus="s">
+          	<c:if test="${pageBean.currentPage == s.count }">
+          		<li class="active"><a href="javascript:void(0);">${s.count }</a></li>
+          	</c:if>
+          	<c:if test="${pageBean.currentPage != s.count }">
+          		<li><a href="${pageContext.request.contextPath }/commentServlet?method=list&currentPage=${s.count}">${s.count }</a></li>
+          	</c:if>
+          </c:forEach>
+          
+          <c:if test="${pageBean.currentPage == pageBean.totalPage}">
+          <li class="disabled">
+            <a href="javascript:void(0);" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          </c:if>
+          <c:if test="${pageBean.currentPage != pageBean.totalPage}">
+          <li>
+            <a href="${pageContext.request.contextPath }/commentServlet?method=list&currentPage=${pageBean.currentPage+1}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          </c:if>
+          
+        </ul>
+      </nav>   
+</body>
 </html>
