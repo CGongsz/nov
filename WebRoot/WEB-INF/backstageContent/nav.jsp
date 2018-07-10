@@ -12,6 +12,15 @@
 			background: #eee;
 		}
 	</style>
+	
+	<script type="text/javascript">
+		function logout(){
+			var conf = confirm("您确定要退出系统吗？");
+			if(conf){
+				window.top.location.href = "${pageContext.request.contextPath}/logoutServlet";
+			}
+		}
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -23,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Blog Manager</a>
+          <a class="navbar-brand" href="#">${author.username }のBlog</a> <a class="navbar-brand" href="javascript:void(0);" onclick="logout()">Logout</a>
         </div>
       </div>
     </nav>

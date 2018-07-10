@@ -40,6 +40,9 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
 		pageBean.setTotal(total.intValue());
 		Integer size = pageBean.getPageSize();
 		Integer index = (pageBean.getCurrentPage() - 1) * size;
+		if(index < 0) {
+			index = 0;
+		}
 		List<ArticleType> rows = articleTypeDao.findRowsByIndexSizeAndAuthorId(id, index, size);
 		pageBean.setRows(rows);
 	}
@@ -79,6 +82,30 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
 		// 批量删除文章
 		deleteArticleById(articleIdList);
 		deleteArticleTypeById(id);
+	}
+
+	/**
+	 * 保存文章类型
+	 */
+	public void saveArticleType(ArticleType articleType) {
+		articleTypeDao.saveArticleType(articleType);
+	}
+
+	/**
+	 * 判断是否存在该文章类型
+	 */
+	public boolean exsitThisTypeName(Integer id, String typeName) {
+		List<Object> typeNameList = articleTypeDao.findArticleTypeOfTypeNameByAuthorIdList(id);
+		if(typeNameList == null) {
+			return false;
+		}
+		
+		for (Object object : typeNameList) {
+			if(typeName.equals(object.toString())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

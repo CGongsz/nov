@@ -60,6 +60,10 @@ public class CommentServiceImpl implements CommentService {
 		pageBean.setTotal(total.intValue());
 		Integer size = pageBean.getPageSize();
 		Integer index = (pageBean.getCurrentPage() - 1) * size;
+		
+		if(index < 0) {
+			index = 0;
+		}
 		List<Comment> rows = commentDao.findRowsByIndexSizeAndAuthorId(id, index, size);
 		pageBean.setRows(rows);
 	}
@@ -69,6 +73,9 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	public void setArticleOfComment(PageBean<Comment> pageBean) {
 		List<Comment> rows = pageBean.getRows();
+		if(rows == null) {
+			return;
+		}
 		for (Comment comment : rows) {
 			Article article = articleDao.findArticleById(comment.getArticle_id());
 			comment.setArticle(article);

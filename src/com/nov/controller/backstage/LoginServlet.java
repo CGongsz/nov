@@ -20,6 +20,12 @@ public class LoginServlet extends HttpServlet {
 	private LoginService loginService = new LoginServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("author") != null) {
+			request.getRequestDispatcher("/WEB-INF/backstageContent/backIndex.jsp").forward(request, response);
+			return;
+		}
+		
 		// 获得提交的用户名和密码
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");

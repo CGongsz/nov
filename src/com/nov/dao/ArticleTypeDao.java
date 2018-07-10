@@ -46,4 +46,18 @@ public interface ArticleTypeDao extends BaseDao<ArticleType>{
 	 */
 	public void deleteArticleTypeById(Integer id);
 
+	/**
+	 * 保存文章类型
+	 * @param articleType 文章类型实体
+	 */
+	public void saveArticleType(ArticleType articleType);
+
+	/**
+	 * 查询文章类型的类型名字段集合
+	 * @param id
+	 * @return
+	 */
+	public List<Object> findArticleTypeOfTypeNameByAuthorIdList(Integer id);
+
+
 }

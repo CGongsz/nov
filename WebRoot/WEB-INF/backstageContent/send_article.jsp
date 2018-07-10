@@ -113,24 +113,75 @@
 			},
 			'json'
 		);
+		
+		function articleSave(){
+			var title = $("#title").val();
+			var keyword = $("#keyword").val();
+			
+			if(title == null || title.trim() == ""){
+				$("#titleMes").html("标题不能为空");
+				return;
+			}else{
+				$("#titleMes").html("");
+			}
+			
+			if(keyword == null || keyword.trim() == ""){
+				$("#keywordMes").html("关键字不能为空");
+				return;
+			}else{
+				$("#keywordMes").html("");
+			}
+			
+			var errorMes = $("#errorMes").html();
+			if(errorMes == "已存在该标题的文章"){
+				alert("请修改文章标题")
+				return;
+			}
+			$("#articleForm").submit();
+		}
+		
+		function avoidRepeat(){
+		
+			var title = $("#title").val().trim();
+			
+			if(title == ""){
+				return;
+			}
+			
+			$.post(
+				"${pageContext.request.contextPath}/articleServlet?method=avoidRepeat",
+				{'title':title},
+				function(data){
+					$("#errorMes").html(data);
+				}
+			);
+		}
 	</script>
 </head>
 <body>
 	<div>
           <h2 class="sub-header">编辑文章</h2>
           <div class="table-responsive">
-            <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/articleServlet?method=save">
+            <form id="articleForm" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/articleServlet?method=save">
             	<label for="">所属分类</label>
             	<select id="art_type" name="article_type_id" class="form-control">          	  
             	</select>
+            	<div>
             	<label for="">标题</label>
-            	<input name="title" type="text" class="form-control">
-            	<label for="">关键字</label>
-            	<input name="keyword" type="text" class="form-control">
+            	<input id="title" onblur="avoidRepeat()" name="title" type="text" class="form-control">  
+            	<span id="titleMes" style="color: red;"></span>
+				<span id="errorMes" style="color: red;"></span>
+            	</div>
+            	<div>
+            	<label  for="">关键字</label>
+            	<input id="keyword" name="keyword" type="text" class="form-control">  
+            	<span id="keywordMes" style="color: red;"></span>
+            	</div>
             	<br><br>
 				<input name="clickRate" type="hidden" value='${art.clickRate }'>
-               <textarea name="content" id="mytextarea">Hello, World!</textarea>
-               <button type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;</button>
+               <textarea name="content" id="mytextarea"></textarea>
+               <!-- <button type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;</button> -->
+               <a class="btn btn-primary" href="javascript:void(0);" onclick="articleSave()">&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;</a>
             </form>
           </div>
         </div>

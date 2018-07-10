@@ -47,12 +47,14 @@ public class CommentServlet extends BaseServlet<Comment> {
 	 * @param request
 	 * @param response
 	 * @throws IOException 
+	 * @throws ServletException 
 	 */
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Object author = request.getSession().getAttribute("author");
 		
 		if(author == null) {
-			response.sendRedirect("/backstage/login.jsp");
+			// session失效，给出错误页面
+			request.getRequestDispatcher("/WEB-INF/error/error.jsp").forward(request, response);
 			return;
 		} else {
 			String id = request.getParameter("id");
@@ -71,7 +73,8 @@ public class CommentServlet extends BaseServlet<Comment> {
 		Object author = request.getSession().getAttribute("author");
 		
 		if(author == null) {
-			response.sendRedirect("/backstage/login.jsp");
+			// session失效，给出错误页面
+			request.getRequestDispatcher("/WEB-INF/error/error.jsp").forward(request, response);
 			return;
 		} else {
 			Integer id = ((Author) author).getId();
@@ -81,6 +84,15 @@ public class CommentServlet extends BaseServlet<Comment> {
 			
 			// 设置评论中的文章实体
 			commentService.setArticleOfComment(pageBean);
+			
+			// 健壮性判断
+			if (pageBean.getCurrentPage() == 0) {
+				pageBean.setCurrentPage(1);
+			}
+			if (pageBean.getTotalPage() == 0) {
+				pageBean.setTotalPage(1);
+			}
+			
 			// 转发到页面
 			request.setAttribute("pageBean", pageBean);
 			

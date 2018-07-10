@@ -22,6 +22,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>评论编号</th>
                   <th>昵称</th>
                   <th>时间</th>
                   <th>内容</th>
@@ -30,8 +31,9 @@
                 </tr>
               </thead>
               <tbody>
-              <c:forEach items="${pageBean.rows }" var="comment">
+              <c:forEach items="${pageBean.rows }" var="comment" varStatus="s">
                 <tr>
+                  <td>${(pageBean.currentPage-1)*pageBean.pageSize + s.count }</td>
                   <td>${comment.visitor_username }</td>
                   <td><fmt:formatDate value="${comment.createTime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                   <td>${comment.content }</td>
@@ -95,6 +97,8 @@
           </c:if>
           
         </ul>
+      <span class="label label-info" style="margin-left: 10%;">共${pageBean.total }条数据</span>
       </nav>   
+      
 </body>
 </html>

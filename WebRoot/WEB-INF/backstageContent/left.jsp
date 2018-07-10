@@ -79,7 +79,7 @@
             </li>
             <li><h4><a target="right" href="${pageContext.request.contextPath }/commentServlet?method=list">留言管理</a></h4></li>
             <li><h4><a target="right" href="${pageContext.request.contextPath }/articleTypeServlet?method=list">分类管理</a></h4></li>
-            <li><h4><a target="right" href="${pageContext.request.contextPath }/back/person_message.html">个人信息</a></h4></li>
+            <li><h4><a target="right" href="${pageContext.request.contextPath }/authorServlet?method=writeBack"">个人信息</a></h4></li>
           </ul>
       </div>
 </body>

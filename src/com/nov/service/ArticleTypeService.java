@@ -51,4 +51,17 @@ public interface ArticleTypeService {
 	 */
 	public void cascadeDeleteArticleType(Integer id);
 
+	/**
+	 * 保存文章类型
+	 * @param articleType 文章类型实体
+	 */
+	public void saveArticleType(ArticleType articleType);
+
+	/**
+	 * 判断是否存在该文章类型
+	 * @param id
+	 * @param typeName
+	 */
+	public boolean exsitThisTypeName(Integer id, String typeName);
+
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Author {
 	private Integer id;
-	private String name;
+	//private String name;
 	private Integer gender; // 1为男性，0为女性
 	private Date birthday;
 	// 账号密码
@@ -14,28 +14,22 @@ public class Author {
 	private String introduction;
 	public Author() {
 	}
-	public Author(Integer id, String name, Integer gender, Date birthday, String username, String password,
-			String introduction) {
+	
+	public Author(Integer id, Integer gender, Date birthday, String username, String password, String introduction) {
 		super();
 		this.id = id;
-		this.name = name;
 		this.gender = gender;
 		this.birthday = birthday;
 		this.username = username;
 		this.password = password;
 		this.introduction = introduction;
 	}
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public Integer getGender() {
 		return gender;
@@ -67,11 +61,11 @@ public class Author {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
+
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", name=" + name + ", gender=" + gender + ", birthday=" + birthday + ", username="
-				+ username + ", password=" + password + ", introduction=" + introduction + "]";
+		return "Author [id=" + id + ", gender=" + gender + ", birthday=" + birthday + ", username=" + username
+				+ ", password=" + password + ", introduction=" + introduction + "]";
 	}
-	
 	
 }

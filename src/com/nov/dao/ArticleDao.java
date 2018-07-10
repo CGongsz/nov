@@ -68,5 +68,60 @@ public interface ArticleDao extends BaseDao<Article>{
 	 * @param art
 	 */
 	public void save(Article art);
-	
+
+
+	/**
+	 * 查询博主文章的标题列
+	 * @param id
+	 * @return
+	 */
+	public List<Object> findAllArticleTitleByAuthorIdList(Integer id);
+
+	/**
+	 * 查询博主点击量前十的文章实体
+	 * @param id 博主唯一标识
+	 * @return 文章集合/null
+	 */
+	public List<Article> findTenOfArticleByClickRate(Integer id);
+
+	/**
+	 * 查询博主某类型文章总记录数
+	 * @param id 博主唯一标识
+	 * @param search 搜索条件
+	 * @return 
+	 */
+	public Long findArticleByTitleTotal(Integer id, String search);
+
+
+	/**
+	 * 根据分页对象里的数据、搜索条件和博主ID查询对应的部分数据
+	 * @param id
+	 * @param index
+	 * @param size
+	 * @param search
+	 * @return
+	 */
+	public List<Article> findRowsByIndexSizeTitleAndAuthorId(Integer id, Integer index, Integer size, String search);
+
+	/**
+	 * 根据文章类型ID查询文章
+	 * @param typeId
+	 * @return
+	 */
+	public List<Article> findArticleByArticleTypeIdList(Integer typeId);
+
+	/**
+	 * 文章点击量加一
+	 * @param articleIdStr
+	 * @param integer 
+	 */
+	public void updateArticleClickRateById(String articleIdStr, Integer integer);
+
+	/**
+	 * 对文章进行更新
+	 * @param art
+	 */
+	public void updateArticle(Article art);
+
+
 }

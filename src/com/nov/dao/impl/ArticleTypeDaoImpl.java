@@ -56,4 +56,21 @@ public class ArticleTypeDaoImpl extends BaseDaoImpl<ArticleType> implements Arti
 		this.update(sql, id);
 	}
 
+	/**
+	 * 保存文章类型
+	 */
+	public void saveArticleType(ArticleType articleType) {
+		String sql = "insert into articletype(typeName, info, author_id) values(?, ?, ?)";
+		this.update(sql, articleType.getTypeName(), articleType.getInfo(), articleType.getAuthor_id());
+	}
+
+	/**
+	 * 查询文章类型的名字字段集合
+	 */
+	public List<Object> findArticleTypeOfTypeNameByAuthorIdList(Integer id) {
+		String sql = "select * from articletype where author_id = ? ";
+		List<Object> columnList = this.findEntityOfOneColumn(sql, "typeName", id);
+		return columnList;
+	}
+
 }

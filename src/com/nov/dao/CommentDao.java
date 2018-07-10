@@ -46,5 +46,18 @@ public interface CommentDao extends BaseDao<Comment>{
 	 * @param id 文章的唯一标识
 	 */
 	public void deleteAllCommentOfArticle(String id);
+
+	/**
+	 * 保存评论
+	 * @param comment
+	 */
+	public void save(Comment comment);
+
+	/**
+	 * 查询文章所有评论并排序
+	 * @param id
+	 * @return
+	 */
+	public List<Comment> findCommentByArticleIdSortList(String id);
 	
 }

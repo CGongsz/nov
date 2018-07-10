@@ -1,6 +1,11 @@
 package com.nov.dao.impl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -93,6 +98,68 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 		Object[] params = {art.getId(), art.getAuthor_id(), art.getTitle(), art.getCreateTime(), art.getContent(), art.getArticle_type_id(), art.getKeyword(), art.getClickRate()};
 		this.update(sql, params);
 	}
+
+
+	/**
+	 * 查询博主文章标题的集合
+	 */
+	public List<Object> findAllArticleTitleByAuthorIdList(Integer id) {
+		String sql = "select * from article where author_id = ? ";
+		List<Object> titleList = this.findEntityOfOneColumn(sql, "title", id);
+		return titleList;
+	}
+
+	/**
+	 * 查询点击量前十的文章
+	 */
+	public List<Article> findTenOfArticleByClickRate(Integer id) {
+		String sql = "select * from article where author_id = ? order by clickRate desc limit 0,10";
+		return this.query(sql, id);
+	}
+
+	/**
+	 * 获得按条件查询的文章总记录数
+	 */
+	public Long findArticleByTitleTotal(Integer id, String search) {
+		String sql = "select count(*) from article where author_id = ? and title like ?";
+		search = '%' + search + '%';
+		return this.findEntityNumber(sql, id, search);
+	}
+
+	/**
+	 * 根据分页对象里的数据、搜索条件和博主ID查询对应的部分数据
+	 */
+	public List<Article> findRowsByIndexSizeTitleAndAuthorId(Integer id, Integer index, Integer size, String search) {
+		String sql = "select * from article where author_id = ? and title like ? order by createTime desc limit ?,?";
+		return this.query(sql, id, search, index, size);
+	}
+
+	/**
+	 * 根据文章类型ID查询文章
+	 */
+	public List<Article> findArticleByArticleTypeIdList(Integer typeId) {
+		String sql = "select * from article where article_type_id = ? order by createTime desc";
+		return this.query(sql, typeId);
+	}
+
+	/**
+	 * 点击量加一
+	 */
+	public void updateArticleClickRateById(String articleIdStr, Integer integer) {
+		integer++;
+		String sql = "update article set clickRate = ? where id = ? ";
+		this.update(sql, integer, articleIdStr);
+	}
+
+	/**
+	 * 对文章进行更新
+	 */
+	public void updateArticle(Article art) {
+		String sql = "update article set author_id = ?, title = ?, createTime = ?, content = ?, article_type_id = ?, keyword = ?, clickRate = ? where id = ? ";
+		this.update(sql, art.getAuthor_id(), art.getTitle(), art.getCreateTime(), art.getContent(), art.getArticle_type_id(), art.getKeyword(), art.getClickRate(), art.getId());
+	}
+
+	
 
 	
 	

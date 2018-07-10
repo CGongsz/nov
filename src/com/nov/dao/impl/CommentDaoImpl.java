@@ -25,8 +25,8 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
 	 * 查询评论总记录数
 	 */
 	public Long findCommentTotal(Integer id) {
-		String sql = "select count(*) from comment";
-		Long total = this.findEntityNumber(sql);
+		String sql = "select count(*) from comment where author_id = ?";
+		Long total = this.findEntityNumber(sql, id);
 		return total;
 	}
 
@@ -53,6 +53,22 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
 	public void deleteAllCommentOfArticle(String id) {
 		String sql = "delete from comment where article_id = ? ";
 		this.update(sql, id);
+	}
+
+	/**
+	 * 保存评论
+	 */
+	public void save(Comment comment) {
+		String sql = "insert into comment values(?, ?, ?, ?, ?, ?, ?)";
+		this.update(sql, comment.getId(), comment.getAuthor_id(), comment.getVisitor_username(), comment.getVisitor_email(), comment.getArticle_id(), comment.getContent(), comment.getCreateTime());
+	}
+
+	/**
+	 * 查询文章所有评论并排序
+	 */
+	public List<Comment> findCommentByArticleIdSortList(String id) {
+		String sql = "select * from comment where article_id = ? order by createTime ";
+		return this.query(sql, id);
 	}
 
 }

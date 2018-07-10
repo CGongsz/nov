@@ -7,6 +7,8 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/style/css/bootstrap.min.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath }/style/js/jquery-3.2.0.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/style/js/bootstrap.min.js"></script>
 	<style>
 		body {
 			padding-left: 40px;
@@ -17,20 +19,20 @@
 </head>
 <body>
     <h2 class="sub-header">分类管理</h2>
-    <div class="table-responsive">
+    <div class="table-responsive" >
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>类别编号</th>
               <th>文章类别</th>
               <th>类别描述</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
-          <c:forEach items="${pageBean.rows }" var="articleType">
+          <c:forEach items="${pageBean.rows }" var="articleType" varStatus="s">
             <tr>
-              <td>${articleType.typeId }</td>
+              <td>${(pageBean.currentPage-1)*pageBean.pageSize + s.count }</td>
               <td>${articleType.typeName }</td>
               <td>${articleType.info }</td>
               <td>
@@ -90,18 +92,61 @@
           </li>
           </c:if>
         </ul>
+      <span class="label label-info" style="margin-left: 10%;">共${pageBean.total }条数据</span>
       </nav>
-        <form action="#">
+      <script type="text/javascript">
+      		function saveArticleType(){
+      			var typeName = $("#typeName").val();
+      			var info = $("#info").val();
+      			
+      			if(typeName == null || typeName.trim() == ""){
+      				$("#typeNameMes").html("请输入需要创建的文章类型");
+    				return;
+      			}else{
+      				$("#typeNameMes").html("");
+      			}
+      			
+      			if(info == null || info.trim() == ""){
+      				$("#infoMes").html("请输入对该文章类型的一些描述");
+      				return;
+      			}else{
+      				$("#infoMes").html("");
+      			}
+      			
+      			var errorMes = $("#errorMes").html();
+				if(errorMes == "已存在该类型名"){
+					alert("请修改类型名");
+					return;
+				}
+      			
+      			$("#articleTypeForm").submit();
+      		}
+      		
+      		function avoidRepeat(){
+      			var typeName = $("#typeName").val();
+	      		$.post(
+	      			"${pageContext.request.contextPath}/articleTypeServlet?method=avoidRepeat",
+	      			{'typeName':typeName},
+	      			function(data){
+	      				$("#errorMes").html(data);
+	      			}
+	      		);
+	      		
+	      		
+      		}
+      </script>
+        <form id="articleTypeForm" action="${pageContext.request.contextPath }/articleTypeServlet?method=save&currentPage=${pageBean.currentPage}" method="post">
         	<div class="form-group has-warning has-feedback">
         	  <label>类别:</label>
-        	  <input style="width: 10%;margin-right: 0;" type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">	
-        	  
+        	  <input onblur="avoidRepeat()" name="typeName" style="width: 10%;margin-right: 0;" type="text" class="form-control" id="typeName" aria-describedby="inputWarning2Status">	
+        	  <span id="typeNameMes" style="color: red;"></span>
+        	  <span id="errorMes" style="color: red;"></span>
         	</div>
         	<div class="form-group has-warning has-feedback">
 	        	<label>描述:</label>
-	        	<textarea class="form-control" rows="3"></textarea>
-	        	<span id="inputWarning2Status" class="sr-only">(warning)</span>
-	        	<button style="float: right; margin-right: 20px;margin-top: 20px;" type="button" class="btn btn-primary">&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+	        	<textarea id="info" name="info" class="form-control" rows="3"></textarea>
+	        	<span id="infoMes"  style="color: red;"></span>
+	        	<button style="float: right; margin-right: 20px;margin-top: 20px;" onclick="saveArticleType()" type="button" class="btn btn-primary">&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
         	</div>
         </form>
 
