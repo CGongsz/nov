@@ -2,6 +2,8 @@ package com.nov.bean;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Article {
 	private String id;
 	// 该文章作者标识
@@ -9,6 +11,7 @@ public class Article {
 	private Author author;
 	// 文章标题
 	private String title;
+	@JSONField (format="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	// 文章内容
 	private String content;

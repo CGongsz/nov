@@ -1,5 +1,7 @@
 package com.nov.dao;
 
+import java.util.List;
+
 import com.nov.bean.Visitor;
 
 /**
@@ -15,5 +17,18 @@ public interface VisitorDao extends BaseDao<Visitor> {
 	 * @return
 	 */
 	public Visitor findVisitorByEmail(String email);
+
+	/**
+	 * 查询所有游客的用户名
+	 * @param username 
+	 * @return
+	 */
+	public List<Object> findAllVisitorUsername(String username);
+
+	/**
+	 * 保存游客
+	 * @param visitor
+	 */
+	public void save(Visitor visitor);
 
 }

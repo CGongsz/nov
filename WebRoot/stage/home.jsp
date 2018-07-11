@@ -65,12 +65,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="${pageContext.request.contextPath }/stage/index.jsp">Welcome</a>
+          <a class="navbar-brand" href="${pageContext.request.contextPath }/stage/index.jsp">博客入口</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li class="active"><a href="#">博客首页</a></li>
+            <!-- <li><a href="#about">About</a></li> -->
           </ul>
           	<div class="input-group" style="width: 300px; float: right; margin-top: 8px;">
                     <input type="text" class="form-control" aria-label="Text input with segmented button dropdown">

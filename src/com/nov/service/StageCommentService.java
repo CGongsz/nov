@@ -41,4 +41,10 @@ public interface StageCommentService {
 	 */
 	public List<Comment> findAllCommentByArticleId(String articleId);
 
+	/**
+	 * 保存评论
+	 * @param comment
+	 */
+	public void saveComment(Comment comment);
+
 }

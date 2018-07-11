@@ -123,5 +123,21 @@ public interface ArticleDao extends BaseDao<Article>{
 	 */
 	public void updateArticle(Article art);
 
+	/**
+	 * 根据文章类型查找该类型文章总记录数
+	 * @param typeId
+	 * @return
+	 */
+	public Long findArticleTotalByArticleTypeId(Integer typeId);
+
+	/**
+	 * 根据分页对象里的数据和文章类型ID查询对应的部分数据
+	 * @param typeId
+	 * @param index
+	 * @param size
+	 * @return
+	 */
+	public List<Article> findfindRowsByIndexSizeAndArticleTypeId(Integer typeId, Integer index, Integer size);
+
 
 }

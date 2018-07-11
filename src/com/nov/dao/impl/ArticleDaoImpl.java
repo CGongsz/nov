@@ -159,6 +159,23 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 		this.update(sql, art.getAuthor_id(), art.getTitle(), art.getCreateTime(), art.getContent(), art.getArticle_type_id(), art.getKeyword(), art.getClickRate(), art.getId());
 	}
 
+	/**
+	 * 根据文章类型查找该类型文章总记录数
+	 */
+	public Long findArticleTotalByArticleTypeId(Integer typeId) {
+		String sql = "select count(*) from article where article_type_id = ? ";
+		Long total = this.findEntityNumber(sql, typeId);
+		return total;
+	}
+
+	/**
+	 * 根据分页对象里的数据和文章类型ID查询对应的部分数据
+	 */
+	public List<Article> findfindRowsByIndexSizeAndArticleTypeId(Integer typeId, Integer index, Integer size) {
+		String sql = "select * from article where article_type_id = ? order by createTime desc limit ?,?";
+		return this.query(sql, typeId, index, size);
+	}
+
 	
 
 	

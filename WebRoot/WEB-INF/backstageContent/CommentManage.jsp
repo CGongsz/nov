@@ -18,7 +18,7 @@
 </head>
 <body>
 	<h2 class="sub-header">留言列表</h2>
-          <div class="table-responsive">
+          <div class="table-responsive" style="height:360px;">
             <table class="table table-striped">
               <thead>
                 <tr>

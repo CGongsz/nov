@@ -25,4 +25,21 @@ public class VisitorDaoImpl extends BaseDaoImpl<Visitor> implements VisitorDao {
 		}
 	}
 
+	/**
+	 * 查询所有游客用户名
+	 */
+	public List<Object> findAllVisitorUsername(String username) {
+		String sql = "select * from visitor ";
+		return this.findEntityOfOneColumn(sql, "username");
+	}
+
+	/**
+	 * 保存游客
+	 */
+	public void save(Visitor visitor) {
+		String sql = "insert into visitor values(?, ?) ";
+		this.update(sql, visitor.getEmail(), visitor.getUsername());
+		
+	}
+
 }

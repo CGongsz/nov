@@ -90,14 +90,21 @@
     <servlet-name>StageArticleServlet</servlet-name>
     <url-pattern>/stageArticleServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>StageCommentServlet</servlet-name>
-  	<servlet-class>com.nov.controller.stage.StageCommentServlet</servlet-class>
+    <servlet-name>StageCommentServlet</servlet-name>
+    <servlet-class>com.nov.controller.stage.StageCommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>StageCommentServlet</servlet-name>
-  	<url-pattern>/stageCommentServlet</url-pattern>
+    <servlet-name>StageCommentServlet</servlet-name>
+    <url-pattern>/stageCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>StageVisitorServlet</servlet-name>
+  	<servlet-class>com.nov.controller.stage.StageVisitorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>StageVisitorServlet</servlet-name>
+  	<url-pattern>/stageVisitorServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>EncodingFilter</filter-name>

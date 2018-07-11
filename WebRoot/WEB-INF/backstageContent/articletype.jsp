@@ -19,8 +19,8 @@
 </head>
 <body>
     <h2 class="sub-header">分类管理</h2>
-    <div class="table-responsive" >
-        <table class="table table-striped">
+    <div class="table-responsive">
+        <table class="table table-striped" style="height:360px;">
           <thead>
             <tr>
               <th>类别编号</th>

@@ -96,6 +96,14 @@ public class StageCommentServiceImpl implements StageCommentService {
 		return commentList;
 	}
 
+	/**
+	 * 保存文章评论
+	 */
+	public void saveComment(Comment comment) {
+		commentDao.save(comment);
+		
+	}
+
 	
 
 }

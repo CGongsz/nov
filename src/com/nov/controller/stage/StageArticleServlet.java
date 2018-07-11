@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.nov.bean.Article;
+import com.nov.bean.ArticleType;
 import com.nov.bean.Author;
 import com.nov.controller.base.BaseServlet;
 import com.nov.service.StageArticleService;
 import com.nov.service.impl.SategArticleServiceImpl;
+import com.nov.vo.PageBean;
 
 /**
  * 前台文章模块控制器
@@ -119,6 +121,8 @@ public class StageArticleServlet extends BaseServlet<Article> {
 			return;
 		}
 		
+		PageBean<Article> pageBean = this.getPageBean(request, response);
+		
 		// 查询博主
 		Author author = stageArticleService.findAuthorById(authorId);
 		
@@ -127,17 +131,30 @@ public class StageArticleServlet extends BaseServlet<Article> {
 		}
 		
 		// 查询文章
-		List<Article> articleList = stageArticleService.findArticleByArticleTypeIdList(typeId);
-		if (articleList == null) {
+		//List<Article> articleList = stageArticleService.findArticleByArticleTypeIdList(typeId);
+		stageArticleService.improveArticlePageBean(typeId, pageBean);
+		
+		
+		ArticleType articleType = stageArticleService.findArticleTypeById(typeId);
+		
+		if(pageBean.getRows() == null) {
 			return;
 		}
-		for (Article article : articleList) {
-			article.setAuthor(author);
+		
+		// 健壮性判断
+		if (pageBean.getCurrentPage() == 0) {
+			pageBean.setCurrentPage(1);
+		}
+		if (pageBean.getTotalPage() == 0) {
+			pageBean.setTotalPage(1);
 		}
 		
-		String articleJson = JSON.toJSONString(articleList);
 		
-		response.getWriter().write(articleJson);
+		pageBean.getRows().get(0).setArticleType(articleType);
+		
+		String pageBeanJson = JSON.toJSONString(pageBean);
+		
+		response.getWriter().write(pageBeanJson);
 		
 		
 	}

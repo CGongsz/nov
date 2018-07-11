@@ -2,6 +2,8 @@ package com.nov.bean;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Comment implements Comparable<Comment>{
 	private String id;
 	// 评论的游客标识
@@ -14,6 +16,7 @@ public class Comment implements Comparable<Comment>{
 	// 评论内容
 	private String content;
 	// 评论时间
+	@JSONField (format="yyyy-MM-dd HH:mm:ss") 
 	private Date createTime;
 	// 被评论文章的作者标识
 	private Integer author_id;
