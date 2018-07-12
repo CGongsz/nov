@@ -34,9 +34,53 @@ public class StageArticleServlet extends BaseServlet<Article> {
 			getArticleByArticleType(request, response);
 		} else if("showArticle".equals(method)) {
 			showArticle(request, response);
+		} else if("getArticleByKeyWord".equals(method)) {
+			getArticleByKeyWord(request, response);
 		}
 	}
 	
+	
+
+	private void getArticleByKeyWord(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String authorIdStr = request.getParameter("aid");
+		String keyword = request.getParameter("keyword");
+		Integer authorId = null;
+		// 数据合法性校验
+		if (authorIdStr != null && !"".equals(authorIdStr)) {
+			Pattern p = Pattern.compile("^[0-9]*[1-9][0-9]*$");
+			Matcher m = p.matcher(authorIdStr);
+
+			if (m.find()) {
+				authorId = Integer.parseInt(authorIdStr);
+			}
+		}
+		if(authorId == null) {
+			return;
+		}
+		
+		PageBean<Article> pageBean = this.getPageBean(request, response);
+		
+		stageArticleService.SearchArticlePageBean(authorId, keyword, pageBean);
+		
+		if(pageBean.getRows() == null) {
+			return;
+		}
+		
+		// 健壮性判断
+		if (pageBean.getCurrentPage() == 0) {
+			pageBean.setCurrentPage(1);
+		}
+		if (pageBean.getTotalPage() == 0) {
+			pageBean.setTotalPage(1);
+		}
+		
+		String pageBeanJson = JSON.toJSONString(pageBean);
+		
+		response.getWriter().write(pageBeanJson);
+	}
+
+
+
 	/**
 	 * 获得显示文章的json数据,并点击量加一
 	 * @param request

@@ -173,26 +173,18 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="${pageContext.request.contextPath }/stage/home.jsp?id=${param.aid}">博客首页</a></li>
-            <li><a href="${pageContext.request.contextPath }/stage/articleList.jsp?aid=${param.aid}&tid=${param.tid}">文章</a></li>
+            <li><a href="${pageContext.request.contextPath }/stage/articleList.jsp?aid=${param.aid}&tid=${param.tid}">文章列表</a></li>
             <li class="active"><a href="#">文章</a></li>
           </ul>
-          	<div class="input-group" style="width: 300px; float: right; margin-top: 8px;">
-                    <input type="text" class="form-control" aria-label="Text input with segmented button dropdown">
-                    <div class="input-group-btn">
-	                      <button type="button" class="btn btn-default">Action</button>
-	                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                        <span class="caret"></span>
-	                        <span class="sr-only">Toggle Dropdown</span>
-	                      </button>
-	                      <ul class="dropdown-menu dropdown-menu-right">
-	                        <li><a href="#">Action</a></li>
-	                        <li><a href="#">Another action</a></li>
-	                        <li><a href="#">Something else here</a></li>
-	                        <li role="separator" class="divider"></li>
-	                        <li><a href="#">Separated link</a></li>
-	                      </ul>
-                    </div>
-              </div>
+          	<form action="${pageContext.request.contextPath}/stage/searchArticle.jsp? method="post">
+          		<div class="input-group" style="width: 300px; float: right; margin-top: 8px;">
+          			<input name="aid" value="${param.aid}" type="hidden">
+          			<input name="keyword" type="text" class="form-control" aria-label="Text input with segmented button dropdown">
+                	<div class="input-group-btn">
+	                	<button id="search" type="submit" class="btn btn-default">搜索</button>
+                	</div>
+              	</div>
+         	</form>
         </div><!-- /.nav-collapse -->
 		
       </div><!-- /.container -->

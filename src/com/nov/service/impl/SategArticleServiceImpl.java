@@ -78,4 +78,19 @@ public class SategArticleServiceImpl implements StageArticleService {
 		pageBean.setRows(rows);
 	}
 
+	/**
+	 * 根据关键字优化查询分页
+	 */
+	public void SearchArticlePageBean(Integer authorId, String keyword, PageBean<Article> pageBean) {
+		Long total = articleDao.findArticleTotalBykeyword(authorId, keyword);
+		pageBean.setTotal(total.intValue());
+		Integer size = pageBean.getPageSize();
+		Integer index = (pageBean.getCurrentPage() - 1) * size;
+		if(index < 0) {
+			index = 0;
+		}
+		List<Article> rows = articleDao.findPageByKeyword(authorId, keyword, index, size);
+		pageBean.setRows(rows);
+	}
+
 }

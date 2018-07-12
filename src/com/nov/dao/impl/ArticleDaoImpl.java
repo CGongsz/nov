@@ -176,9 +176,29 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements ArticleDao {
 		return this.query(sql, typeId, index, size);
 	}
 
-	
+	/**
+	 * 关键字查询博主文章
+	 */
+	public List<Article> finArticleByKeyWord(int idStr, String keyWord) {
+		String sql = "select * from article where author_id = ? and keyword like ?";
+		return this.query(sql, idStr, "%" + keyWord + "%");
+	}
 
-	
-	
+	/**
+	 * 根据关键字查询文章总数量
+	 */
+	public Long findArticleTotalBykeyword(Integer authorId, String keyword) {
+		String sql = "select count(*) from article where author_id = ? and keyword like ?";
+		
+		return this.findEntityNumber(sql, authorId, keyword);
+	}
+
+	/**
+	 * 根据关键字查询分页结果集
+	 */
+	public List<Article> findPageByKeyword(Integer authorId, String keyword, Integer index, Integer size) {
+		String sql = "select * from article where author_id = ? and keyword like ? limit ?, ?";
+		return this.query(sql, authorId, keyword, index, size);
+	}
 
 }

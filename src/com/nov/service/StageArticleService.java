@@ -55,5 +55,13 @@ public interface StageArticleService {
 	 * @param pageBean
 	 */
 	public void improveArticlePageBean(Integer typeId, PageBean<Article> pageBean);
+	
+	/**
+	 * 根据关键字查询结果优化分页
+	 * @param authorId
+	 * @param keyword
+	 * @param pageBean
+	 */
+	public void SearchArticlePageBean(Integer authorId, String keyword, PageBean<Article> pageBean);
 
 }

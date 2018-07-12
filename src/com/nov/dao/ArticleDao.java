@@ -138,6 +138,32 @@ public interface ArticleDao extends BaseDao<Article>{
 	 * @return
 	 */
 	public List<Article> findfindRowsByIndexSizeAndArticleTypeId(Integer typeId, Integer index, Integer size);
+	
+	/**
+	 * 通过关键字查询博主文章
+	 * @param idStr 博主id
+	 * @param keyWord 关键字
+	 * @return
+	 */
+	public List<Article> finArticleByKeyWord(int idStr, String keyWord);
+	
+	/**
+	 * 根据关键字查询文章总数
+	 * @param authorId
+	 * @param keyword
+	 * @return
+	 */
+	public Long findArticleTotalBykeyword(Integer authorId, String keyword);
+	
+	/**
+	 * 根据关键字查询分页结果对象
+	 * @param authorId
+	 * @param keyword
+	 * @param index
+	 * @param size
+	 * @return
+	 */
+	public List<Article> findPageByKeyword(Integer authorId, String keyword, Integer index, Integer size);
 
 
 }
